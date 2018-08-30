@@ -14,36 +14,59 @@ class Column extends Component {
 
     this.state = {
       category: '',
-      clues: [
-        {
-          clue: '',
-          value: 0,
-          answer: '',
-        }
-      ]
+      clues: []
     }
 
-    this.getClues = this.getClues.bind(this);
-    this.getClues();
   }
 
   getClues = function () {
-    var self = this;
+    let self = this;
+
     const category = CAT_NUM();
     const clueUrl = URL + category;
+
     const request = axios.get(clueUrl)
       .then(function (response) {
-        console.log('Response object: ', response)
+
+        console.log('Response object: ', response);
+
+        //fetch the category title
+        const categoryTitle = response.data.title;
+        console.log('title: ', categoryTitle);
+
+        //get an array of all the clues for this category
+        const clueArray = response.data.clues;
+        console.log('clueArray: ', clueArray);
+
+        //grab the first five clues -- could be modified to grab a random five, but there are 18418 categories...
+        const fiveClues = clueArray.slice(0, 5);
+        console.log('fiveClues: ', fiveClues);
+
+        //set state to contain category, five clues
         self.setState({
-            category: response.data.title
-        }
-      );
-    })
+          category: categoryTitle.toUpperCase(),
+          clues: fiveClues
+        })
+
+        //check the state
+        console.log(self);
+    });
   }
 
   render () {
+    {if (this.state.clues.length === 0) {
+      this.getClues();
+      return (
+        <div>Loading...</div>
+      )
+    }
+  }
+
     return (
-      <h3>{this.state.category}</h3>
+        <div>
+          <h1>{this.state.category}</h1>
+          <h3>{this.state.clues[0].question}</h3>
+        </div>
     );
   }
 }
@@ -51,21 +74,11 @@ class Column extends Component {
 export default Column
 
 
-// import axios from "axios";
-//
-// const API_KEY = "f386691c0cd26a16742b12643c9b113e";
-// const ROOT_URL = `http://api.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`;
-//
-// export const FETCH_WEATHER = "FETCH_WEATHER";
-//
-// export function fetchWeather(city) {
-//   const url = `${ROOT_URL}&q=${city},us&units=imperial`;
-//   const request = axios.get(url);
-//
-//   console.log('Request', request)
-//
-//   return {
-//     type: FETCH_WEATHER,
-//     payload: request
-//   };
+//old render testing
+// (
+//   <div>
+//     <h1>{this.state.category}</h1>
+//     <h1>{this.state.clues[0].question}</h1>
+//   </div>
+// );
 // }
