@@ -22,21 +22,29 @@ class Column extends Component {
         }
       ]
     }
+
+    this.getClues = this.getClues.bind(this);
+    this.getClues();
   }
 
   getClues = function () {
+    var self = this;
     const category = CAT_NUM();
     const clueUrl = URL + category;
-    const request = axios.get(clueUrl);
-    console.log('Request', request)
-
-    return request
+    const request = axios.get(clueUrl)
+      .then(function (response) {
+        console.log('Response object: ', response)
+        self.setState({
+            category: response.data.title
+        }
+      );
+    })
   }
 
   render () {
     return (
-      this.getClues()
-    )
+      <h3>{this.state.category}</h3>
+    );
   }
 }
 
