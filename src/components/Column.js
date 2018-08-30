@@ -29,33 +29,33 @@ class Column extends Component {
     const request = axios.get(clueUrl)
       .then(function (response) {
 
-        console.log('Response object: ', response);
+        // console.log('Response object: ', response);
 
         //fetch the category title
         const categoryTitle = response.data.title;
-        console.log('title: ', categoryTitle);
+        // console.log('title: ', categoryTitle);
 
         //get an array of all the clues for this category
         const clueArray = response.data.clues;
-        console.log('clueArray: ', clueArray);
+        // console.log('clueArray: ', clueArray);
 
         //grab the first five clues -- could be modified to grab a random five, but there are 18418 categories...
         const fiveClues = clueArray.slice(0, 5);
-        console.log('fiveClues: ', fiveClues);
+        // console.log('fiveClues: ', fiveClues);
 
         //set state to contain category, five clues
         self.setState({
           category: categoryTitle.toUpperCase(),
           clues: fiveClues
         })
-        console.log(self.props);
+        // console.log(self.props);
 
         if (self.props.hasOwnProperty('addColumnData')) {
           self.props.addColumnData(self.state);
         }
 
         //check the state
-        console.log(self);
+        // console.log(self);
     });
   }
 

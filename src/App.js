@@ -16,22 +16,6 @@ class App extends Component {
 
     this.columnData = [];
 
-    console.log(this.state);
-
-    this.data = [
-      {
-        value: '$200'
-      }, {
-        value: '$400'
-      }, {
-        value: '$600'
-      }, {
-        value: '$800'
-      }, {
-        value: '$1000'
-      }
-    ]
-
     this.columns = [
       {
         Header: 'Category 1',
@@ -89,31 +73,19 @@ class App extends Component {
 
  renderColumns () {
     let columnArray = [];
-    console.log(this);
+    console.log('render columns fn sees: ', this);
     for (let i=0; i<6; i++) {
       columnArray.push(
         <Column addColumnData={this.addColumnData} key={i}/>
       )
     }
-    console.log(columnArray)
-
     return columnArray;
   }
 
   addColumnData (object) {
     this.columnData.push(object)
-    console.log(this.columnData)
-    console.log('question: ', this.columnData[0].clues[0].question)
-    for (let i=0; i<6; i++) {
-        console.log(this.columnData[0].clues[0].question);
-        this.data.push({
-          question: this.columnData[0].clues[0].question,
-          // value: this.columnData[i].clues[j].value,
-          // answer: this.columnData[i].clues[j].answer,
-          // category: this.columnData[i].category
-        });
-      }
-    console.log(this.data);
+    console.log('columnData contains: ', this.columnData)
+    return this.columnData
     }
 
 
@@ -155,7 +127,7 @@ class App extends Component {
                   fontSize: "20",
                   verticalAlign: "middle"
                 }}
-                data={this.data}
+                data={this.columndata}
                 columns={this.columns}
                 defaultPageSize = {5}
                 sortable={false}
