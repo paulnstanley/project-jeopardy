@@ -9,7 +9,7 @@ const CAT_NUM = function () {
 const URL = `http://jservice.io/api/category?id=`
 
 class Column extends Component {
-  constructor() {
+  constructor(props) {
     super()
 
     this.state = {
@@ -17,6 +17,7 @@ class Column extends Component {
       clues: []
     }
 
+    this.colRef = React.createRef();
   }
 
   getClues = function () {
@@ -47,6 +48,11 @@ class Column extends Component {
           category: categoryTitle.toUpperCase(),
           clues: fiveClues
         })
+        console.log(self.props);
+
+        if (self.props.hasOwnProperty('addColumnData')) {
+          self.props.addColumnData(self.state);
+        }
 
         //check the state
         console.log(self);
@@ -63,10 +69,7 @@ class Column extends Component {
   }
 
     return (
-        <div>
-          <h1>{this.state.category}</h1>
-          <h3>{this.state.clues[0].question}</h3>
-        </div>
+        <div ref={this.colRef} />
     );
   }
 }
