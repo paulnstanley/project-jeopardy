@@ -10,89 +10,53 @@ class App extends Component {
   constructor() {
     super()
 
-    this.state = {hasData:false};
+    this.state = {
+      hasData:false,
+      columns: [
+        {
+          Header: 'Category 1',
+          accessor: 'value',
+          headerStyle: {
+            marginTop: '0px',
+            height: '75px'
+          },
+          style: {
+            borderRadius: "5px",
+            borderColor: "black"
+          }
+        },
+        {
+          Header: 'Category 2',
+          accessor: 'value',
+        },
+        {
+          Header: 'Category 3',
+          accessor: 'value',
+        },
+        {
+          Header: 'Category 4',
+          accessor: 'value',
+        },
+        {
+          Header: 'Category 5',
+          accessor: 'value',
+          },
+        {
+          Header: 'Category 6',
+          accessor: 'value',
+          }
+      ]
+    };
 
     this.columnData = [];
 
     this.addColumnData = this.addColumnData.bind(this);
     this.renderColumns = this.renderColumns.bind(this);
+    this.updateColumnTitles = this.updateColumnTitles.bind(this);
 
   }
 //Create each column with dollar amounts
-  columns = [
-    {
-      Header: 'Category 1',
-      accessor: 'value',
-      headerStyle: {
-        marginTop: '20px',
-        height: '50px'
-      },
-      style: {
-        borderRadius: "5px",
-        borderColor: "black"
-      }
-    },
-    {
-      Header: 'Category 2',
-      accessor: 'value',
-      headerStyle: {
-        marginTop: '20px',
-        height: '50px'
-      },
-      style: {
-        borderRadius: "5px",
-        borderColor: "black"
-      }
-    },
-    {
-      Header: 'Category 3',
-      accessor: 'value',
-      headerStyle: {
-        marginTop: '20px',
-        height: '50px'
-      },
-      style: {
-        borderRadius: "5px",
-        borderColor: "black"
-      }
-    },
-    {
-      Header: 'Category 4',
-      accessor: 'value',
-      headerStyle: {
-        marginTop: '20px',
-        height: '50px'
-      },
-      style: {
-        borderRadius: "5px",
-        borderColor: "black"
-      }
-    },
-    {
-      Header: 'Category 5',
-      accessor: 'value',
-      headerStyle: {
-        marginTop: '20px',
-        height: '50px'
-      },
-      style: {
-        borderRadius: "5px",
-        borderColor: "black"
-      }
-    },
-    {
-      Header: 'Category 6',
-      accessor: 'value',
-      headerStyle: {
-        marginTop: '20px',
-        height: '50px'
-      },
-      style: {
-        borderRadius: "5px",
-        borderColor: "black"
-      }
-    }
-  ]
+
   renderColumns () {
     let columnArray = [];
     console.log('render columns fn sees: ', this);
@@ -112,11 +76,60 @@ class App extends Component {
     this.columnData.push(object)
     if (this.columnData.length === 6) {
       this.setState({columnData: this.columnData, hasData: true})
+      const stateTest = this.state.columnData
+      this.updateColumnTitles(stateTest)
     }
-    // console.log('columnData contains: ', this.columnData)
-    // return this.columnData
-    }
+  }
 
+  updateColumnTitles = function (stateTest) {
+    console.log(stateTest)
+    console.log(this.state.columns)
+
+    const columnHeaders = [{
+      Header: stateTest[0].category,
+      accessor: 'value',
+      headerStyle: {
+        marginTop: '0px',
+        height: '75px'
+      },
+      style: {
+        borderRadius: "5px",
+        borderColor: "black"
+      }
+    },
+    {
+      Header: stateTest[1].category,
+      accessor: 'value'
+    },
+    {
+      Header: stateTest[2].category,
+      accessor: 'value'
+    },
+    {
+      Header: stateTest[3].category,
+      accessor: 'value'
+    },
+    {
+      Header: stateTest[4].category,
+      accessor: 'value'
+    },
+    {
+      Header: stateTest[5].category,
+      accessor: 'value'
+    }
+  ]
+
+    this.setState({columns: columnHeaders})
+
+    // this.setState(prevState => ({
+    //   columns: {
+    //     ...prevState.columns,
+    //     column: ''
+    //   }
+    // }))
+
+    console.log(this.state.columns)
+    }
 
   render() {
     const getTdProps = (state, rowInfo, column, instance) => {
@@ -158,10 +171,10 @@ class App extends Component {
                   borderColor: "#000000",
                   color: "#FFCC00",
                   fontSize: "20",
-                  verticalAlign: "middle"
+                  verticalAlign: "middle",
                 }}
                 data={this.state.columnData[0].clues}
-                columns={this.columns}
+                columns={this.state.columns}
                 defaultPageSize = {5}
                 sortable={false}
                 resizable={false}
