@@ -6,6 +6,8 @@ import './App.css';
 import "react-table/react-table.css";
 import "./index.css";
 
+var num = 10000;
+
 class App extends Component {
   constructor() {
     super()
@@ -105,7 +107,7 @@ class App extends Component {
       Header: newState[0].category,
       // Cell: "400",
       accessor: 'value',
-      Cell: '500',
+      Cell: 50*Math.round(Math.random()*30),
       id: '1',
       headerStyle: {
         marginTop: '0px',
@@ -119,7 +121,7 @@ class App extends Component {
     {
       Header: newState[1].category,
       accessor: 'value',
-      Cell: '500',
+      Cell: 50*Math.round(Math.random()*30),
       style: {
         marginTop: '10px',
         fontSize: '20px'
@@ -128,7 +130,7 @@ class App extends Component {
     {
       Header: newState[2].category,
       accessor: 'value',
-      Cell: '500',
+      Cell: 50*Math.round(Math.random()*30),
       style: {
         marginTop: '10px',
         fontSize: '20px'
@@ -137,7 +139,7 @@ class App extends Component {
     {
       Header: newState[3].category,
       accessor: 'value',
-      Cell: '500',
+      Cell: 50*Math.round(Math.random()*30),
       style: {
         marginTop: '10px',
         fontSize: '20px'
@@ -146,7 +148,7 @@ class App extends Component {
     {
       Header: newState[4].category,
       accessor: 'value',
-      Cell: '500',
+      Cell: 50*Math.round(Math.random()*30),
       style: {
         marginTop: '10px',
         fontSize: '20px'
@@ -155,7 +157,7 @@ class App extends Component {
     {
       Header: newState[5].category,
       accessor: 'value',
-      Cell: '500',
+      Cell: 50*Math.round(Math.random()*30),
       style: {
         marginTop: '10px',
         fontSize: '20px'
