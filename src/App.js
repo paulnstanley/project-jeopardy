@@ -133,9 +133,13 @@ class App extends Component {
 
   render() {
     const getTdProps = (state, rowInfo, column, instance) => {
+      console.log(rowInfo)
+      console.log(column)
       return {
         onClick: (e, handleOriginal) => {
-            console.log('You clicked: ', column.Header, rowInfo.original.value)
+            console.log('You clicked: ', column.Header, rowInfo.original.question)
+            console.log("It was in this column:", column)
+            console.log("It was in this row:", rowInfo)
         }
       }
     }
