@@ -59,13 +59,13 @@ class App extends Component {
 
   renderColumns () {
     let columnArray = [];
-    console.log('render columns fn sees: ', this);
+    // console.log('render columns fn sees: ', this);
     for (let i=0; i<6; i++) {
       columnArray.push(
         <Column addColumnData={this.addColumnData} key={i}/>
       )
     }
-    console.log(this.columnData)
+    // console.log(this.columnData)
     // const question = this.columnData[0].clues[0].question;
     // console.log(question)
     return columnArray;
@@ -76,21 +76,22 @@ class App extends Component {
     this.columnData.push(object)
     if (this.columnData.length === 6) {
       this.setState({columnData: this.columnData, hasData: true})
-      const stateTest = this.state.columnData
-      this.updateColumnTitles(stateTest)
+      const newState = this.state.columnData
+      console.log(newState)
+      this.updateColumnTitles(newState)
     }
   }
 
-  updateColumnTitles = function (stateTest) {
-    console.log(stateTest)
-    console.log(this.state.columns)
+  updateColumnTitles = function (newState) {
+    // console.log(newState)
+    // console.log(this.state.columns)
 
     const columnHeaders = [{
-      Header: stateTest[0].category,
+      Header: newState[0].category,
       accessor: 'value',
       headerStyle: {
         marginTop: '0px',
-        height: '75px'
+        height: '100px'
       },
       style: {
         borderRadius: "5px",
@@ -98,48 +99,62 @@ class App extends Component {
       }
     },
     {
-      Header: stateTest[1].category,
+      Header: newState[1].category,
       accessor: 'value'
     },
     {
-      Header: stateTest[2].category,
+      Header: newState[2].category,
       accessor: 'value'
     },
     {
-      Header: stateTest[3].category,
+      Header: newState[3].category,
       accessor: 'value'
     },
     {
-      Header: stateTest[4].category,
+      Header: newState[4].category,
       accessor: 'value'
     },
     {
-      Header: stateTest[5].category,
+      Header: newState[5].category,
       accessor: 'value'
     }
   ]
+  this.setState({columns: columnHeaders})
+  }
 
-    this.setState({columns: columnHeaders})
+  findQuestion (catTitle, rowIndex, state) {
+    console.log('table state within findQuestion function: ', state)
+    const foundQuestion = state.data
+      .filter((category) => catTitle === category.category)[0].clues[rowIndex]
+      // .filter((cell) => rowIndex === )
+      alert(foundQuestion.question);
+      alert(foundQuestion.answer);
 
-    // this.setState(prevState => ({
-    //   columns: {
-    //     ...prevState.columns,
-    //     column: ''
-    //   }
-    // }))
 
-    console.log(this.state.columns)
-    }
+      // .filter((cell) => rowIndex === state.clues)
+
+    // let categories = ReactTable.props.columns
+    // let questions = ReactTable.props.data
+    // for
+  }
 
   render() {
     const getTdProps = (state, rowInfo, column, instance) => {
-      console.log(rowInfo)
-      console.log(column)
       return {
         onClick: (e, handleOriginal) => {
-            console.log('You clicked: ', column.Header, rowInfo.original.question)
-            console.log("It was in this column:", column)
-            console.log("It was in this row:", rowInfo)
+            // console.log("A Td Element was clicked!");
+            // console.log("it produced this event:", e);
+            // console.log("It was in this column:", column);
+            console.log('table state: ', state);
+
+            const catTitle = column.Header;
+            console.log('Column title is: ', catTitle);
+            // console.log("It was in this row:", rowInfo);
+            const rowIndex = rowInfo.index;
+            console.log('Index is: ', rowIndex);
+
+            this.findQuestion(catTitle, rowIndex, state);
+            // markComplete(catTitle, rowIndex);
         }
       }
     }
@@ -162,7 +177,7 @@ class App extends Component {
           <div className="row">
             <div className="col-md-2">
               <div className="score">
-                Player 1 Score: {}
+                Player 1 Score: threeve
               </div>
             </div>
             <div className="col-md-8" id="table">
@@ -177,7 +192,7 @@ class App extends Component {
                   fontSize: "20",
                   verticalAlign: "middle",
                 }}
-                data={this.state.columnData[0].clues}
+                data={this.state.columnData}
                 columns={this.state.columns}
                 defaultPageSize = {5}
                 sortable={false}
@@ -188,7 +203,9 @@ class App extends Component {
               />
             </div>
             <div className="col-md-2">
-              <button type="button" className="btn btn-primary">Restart</button>
+            <div className="score">
+              Player 2 Score: v
+            </div>
             </div>
           </div>
         </div>

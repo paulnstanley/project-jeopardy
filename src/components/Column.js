@@ -66,7 +66,7 @@ class Column extends Component {
         <div>Loading...</div>
       )
     }
-  
+
 
     return (
         <div ref={this.colRef} />
