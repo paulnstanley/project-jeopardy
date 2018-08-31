@@ -3,10 +3,10 @@
 }
 
 .App-header {
-  background-color: #2222DD;
+  background-color: #060CE9;
   height: 100px;
   padding: 20px;
-  color: yellow;
+  color: #FFCC00;
 }
 
 .App-title {
@@ -15,6 +15,16 @@
 
 .App-intro {
   font-size: large;
+}
+
+@font-face {
+   font-family: myFirstFont;
+   src: url('./fonts/gyparody.ttf');
+}
+
+* {
+   font-family: myFirstFont;
+   font-size: 24px;
 }
 
 @keyframes App-logo-spin {

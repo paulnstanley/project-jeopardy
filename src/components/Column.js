@@ -60,13 +60,13 @@ class Column extends Component {
   }
 
   render () {
-    {if (this.state.clues.length === 0) {
+    if (this.state.clues.length === 0) {
       this.getClues();
       return (
         <div>Loading...</div>
       )
     }
-  }
+  
 
     return (
         <div ref={this.colRef} />

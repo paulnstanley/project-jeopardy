@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import Board from './components/Board.js';
 import Column from './components/Column.js';
 import ReactTable from "react-table";
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import "react-table/react-table.css";
@@ -20,11 +18,15 @@ class App extends Component {
     this.renderColumns = this.renderColumns.bind(this);
 
   }
-
+//Create each column with dollar amounts
   columns = [
     {
       Header: 'Category 1',
       accessor: 'value',
+      headerStyle: {
+        marginTop: '20px',
+        height: '50px'
+      },
       style: {
         borderRadius: "5px",
         borderColor: "black"
@@ -33,6 +35,10 @@ class App extends Component {
     {
       Header: 'Category 2',
       accessor: 'value',
+      headerStyle: {
+        marginTop: '20px',
+        height: '50px'
+      },
       style: {
         borderRadius: "5px",
         borderColor: "black"
@@ -41,6 +47,10 @@ class App extends Component {
     {
       Header: 'Category 3',
       accessor: 'value',
+      headerStyle: {
+        marginTop: '20px',
+        height: '50px'
+      },
       style: {
         borderRadius: "5px",
         borderColor: "black"
@@ -49,6 +59,10 @@ class App extends Component {
     {
       Header: 'Category 4',
       accessor: 'value',
+      headerStyle: {
+        marginTop: '20px',
+        height: '50px'
+      },
       style: {
         borderRadius: "5px",
         borderColor: "black"
@@ -57,6 +71,10 @@ class App extends Component {
     {
       Header: 'Category 5',
       accessor: 'value',
+      headerStyle: {
+        marginTop: '20px',
+        height: '50px'
+      },
       style: {
         borderRadius: "5px",
         borderColor: "black"
@@ -65,14 +83,17 @@ class App extends Component {
     {
       Header: 'Category 6',
       accessor: 'value',
+      headerStyle: {
+        marginTop: '20px',
+        height: '50px'
+      },
       style: {
         borderRadius: "5px",
         borderColor: "black"
       }
     }
   ]
-
- renderColumns () {
+  renderColumns () {
     let columnArray = [];
     console.log('render columns fn sees: ', this);
     for (let i=0; i<6; i++) {
@@ -85,6 +106,7 @@ class App extends Component {
     // console.log(question)
     return columnArray;
   }
+
 
   addColumnData (object) {
     this.columnData.push(object)
@@ -131,17 +153,18 @@ class App extends Component {
                 style={{
                   height:"500px",
                   textAlign:"center",
-                  backgroundColor: "blue",
+                  backgroundColor: "#060CE9",
                   borderRadius: "5px",
                   borderColor: "#000000",
-                  color: "yellow",
+                  color: "#FFCC00",
                   fontSize: "20",
                   verticalAlign: "middle"
                 }}
-                data={this.state.columnData.clues}
+                data={this.state.columnData[0].clues}
                 columns={this.columns}
                 defaultPageSize = {5}
                 sortable={false}
+                resizable={false}
                 showPagination={false}
                 showPageSizeOptions={false}
                 getTdProps={getTdProps}
