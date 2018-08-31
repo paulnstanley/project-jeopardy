@@ -1,9 +1,8 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
-import './App.css';
-import Board from './components/Board.js';
 import Column from './components/Column.js';
 import ReactTable from "react-table";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 import "react-table/react-table.css";
 import "./index.css";
 
@@ -11,9 +10,113 @@ class App extends Component {
   constructor() {
     super()
 
-    this.state = {}
+    this.state = {hasData:false};
+
+    this.columnData = [];
+
+    this.addColumnData = this.addColumnData.bind(this);
+    this.renderColumns = this.renderColumns.bind(this);
 
   }
+//Create each column with dollar amounts
+  columns = [
+    {
+      Header: 'Category 1',
+      accessor: 'value',
+      headerStyle: {
+        marginTop: '20px',
+        height: '50px'
+      },
+      style: {
+        borderRadius: "5px",
+        borderColor: "black"
+      }
+    },
+    {
+      Header: 'Category 2',
+      accessor: 'value',
+      headerStyle: {
+        marginTop: '20px',
+        height: '50px'
+      },
+      style: {
+        borderRadius: "5px",
+        borderColor: "black"
+      }
+    },
+    {
+      Header: 'Category 3',
+      accessor: 'value',
+      headerStyle: {
+        marginTop: '20px',
+        height: '50px'
+      },
+      style: {
+        borderRadius: "5px",
+        borderColor: "black"
+      }
+    },
+    {
+      Header: 'Category 4',
+      accessor: 'value',
+      headerStyle: {
+        marginTop: '20px',
+        height: '50px'
+      },
+      style: {
+        borderRadius: "5px",
+        borderColor: "black"
+      }
+    },
+    {
+      Header: 'Category 5',
+      accessor: 'value',
+      headerStyle: {
+        marginTop: '20px',
+        height: '50px'
+      },
+      style: {
+        borderRadius: "5px",
+        borderColor: "black"
+      }
+    },
+    {
+      Header: 'Category 6',
+      accessor: 'value',
+      headerStyle: {
+        marginTop: '20px',
+        height: '50px'
+      },
+      style: {
+        borderRadius: "5px",
+        borderColor: "black"
+      }
+    }
+  ]
+  renderColumns () {
+    let columnArray = [];
+    console.log('render columns fn sees: ', this);
+    for (let i=0; i<6; i++) {
+      columnArray.push(
+        <Column addColumnData={this.addColumnData} key={i}/>
+      )
+    }
+    console.log(this.columnData)
+    // const question = this.columnData[0].clues[0].question;
+    // console.log(question)
+    return columnArray;
+  }
+
+
+  addColumnData (object) {
+    this.columnData.push(object)
+    if (this.columnData.length === 6) {
+      this.setState({columnData: this.columnData, hasData: true})
+    }
+    // console.log('columnData contains: ', this.columnData)
+    // return this.columnData
+    }
+
 
   render() {
     const getTdProps = (state, rowInfo, column, instance) => {
@@ -24,74 +127,18 @@ class App extends Component {
       }
     }
 
-      const data = [
-    {
-      value: '$200'
-    }, {
-      value: '$400'
-    }, {
-      value: '$600'
-    }, {
-      value: '$800'
-    }, {
-      value: '$1000'
+    if(!this.state.hasData) {
+      return (
+        <div>
+          {this.renderColumns()}
+        </div>
+      )
     }
-  ]
-      const columns = [
-      {
-        Header: 'Category 1',
-        accessor: 'value',
-        style: {
-          borderRadius: "5px",
-          borderColor: "black"
-        }
-      },
-      {
-        Header: 'Category 2',
-        accessor: 'value',
-        style: {
-          borderRadius: "5px",
-          borderColor: "black"
-        }
-      },
-      {
-        Header: 'Category 3',
-        accessor: 'value',
-        style: {
-          borderRadius: "5px",
-          borderColor: "black"
-        }
-      },
-      {
-        Header: 'Category 4',
-        accessor: 'value',
-        style: {
-          borderRadius: "5px",
-          borderColor: "black"
-        }
-      },
-      {
-        Header: 'Category 5',
-        accessor: 'value',
-        style: {
-          borderRadius: "5px",
-          borderColor: "black"
-        }
-      },
-      {
-        Header: 'Category 6',
-        accessor: 'value',
-        style: {
-          borderRadius: "5px",
-          borderColor: "black"
-        }
-      }
-    ]
 
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Welcome to Jeopardy</h1>
+          <h1 className="App-title">Project (in) Jeopardy</h1>
         </header>
         <Column />
         <div className="container">
@@ -106,17 +153,18 @@ class App extends Component {
                 style={{
                   height:"500px",
                   textAlign:"center",
-                  backgroundColor: "blue",
+                  backgroundColor: "#060CE9",
                   borderRadius: "5px",
                   borderColor: "#000000",
-                  color: "yellow",
+                  color: "#FFCC00",
                   fontSize: "20",
                   verticalAlign: "middle"
                 }}
-                data={data}
-                columns={columns}
+                data={this.state.columnData[0].clues}
+                columns={this.columns}
                 defaultPageSize = {5}
                 sortable={false}
+                resizable={false}
                 showPagination={false}
                 showPageSizeOptions={false}
                 getTdProps={getTdProps}

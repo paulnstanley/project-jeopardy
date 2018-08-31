@@ -2,16 +2,11 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
 .App-header {
-  background-color: #222;
-  height: 150px;
+  background-color: #060CE9;
+  height: 100px;
   padding: 20px;
-  color: white;
+  color: #FFCC00;
 }
 
 .App-title {
@@ -20,6 +15,16 @@
 
 .App-intro {
   font-size: large;
+}
+
+@font-face {
+   font-family: myFirstFont;
+   src: url('./fonts/gyparody.ttf');
+}
+
+* {
+   font-family: myFirstFont;
+   font-size: 24px;
 }
 
 @keyframes App-logo-spin {
