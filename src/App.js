@@ -12,64 +12,65 @@ class App extends Component {
   constructor() {
     super()
 
-    this.state = {}
+    this.state = {hasData:false};
 
     this.columnData = [];
 
-    this.columns = [
-      {
-        Header: 'Category 1',
-        accessor: 'value',
-        style: {
-          borderRadius: "5px",
-          borderColor: "black"
-        }
-      },
-      {
-        Header: 'Category 2',
-        accessor: 'value',
-        style: {
-          borderRadius: "5px",
-          borderColor: "black"
-        }
-      },
-      {
-        Header: 'Category 3',
-        accessor: 'value',
-        style: {
-          borderRadius: "5px",
-          borderColor: "black"
-        }
-      },
-      {
-        Header: 'Category 4',
-        accessor: 'value',
-        style: {
-          borderRadius: "5px",
-          borderColor: "black"
-        }
-      },
-      {
-        Header: 'Category 5',
-        accessor: 'value',
-        style: {
-          borderRadius: "5px",
-          borderColor: "black"
-        }
-      },
-      {
-        Header: 'Category 6',
-        accessor: 'value',
-        style: {
-          borderRadius: "5px",
-          borderColor: "black"
-        }
-      }
-    ]
     this.addColumnData = this.addColumnData.bind(this);
     this.renderColumns = this.renderColumns.bind(this);
 
   }
+
+  columns = [
+    {
+      Header: 'Category 1',
+      accessor: 'value',
+      style: {
+        borderRadius: "5px",
+        borderColor: "black"
+      }
+    },
+    {
+      Header: 'Category 2',
+      accessor: 'value',
+      style: {
+        borderRadius: "5px",
+        borderColor: "black"
+      }
+    },
+    {
+      Header: 'Category 3',
+      accessor: 'value',
+      style: {
+        borderRadius: "5px",
+        borderColor: "black"
+      }
+    },
+    {
+      Header: 'Category 4',
+      accessor: 'value',
+      style: {
+        borderRadius: "5px",
+        borderColor: "black"
+      }
+    },
+    {
+      Header: 'Category 5',
+      accessor: 'value',
+      style: {
+        borderRadius: "5px",
+        borderColor: "black"
+      }
+    },
+    {
+      Header: 'Category 6',
+      accessor: 'value',
+      style: {
+        borderRadius: "5px",
+        borderColor: "black"
+      }
+    }
+  ]
 
  renderColumns () {
     let columnArray = [];
@@ -79,13 +80,19 @@ class App extends Component {
         <Column addColumnData={this.addColumnData} key={i}/>
       )
     }
+    console.log(this.columnData)
+    // const question = this.columnData[0].clues[0].question;
+    // console.log(question)
     return columnArray;
   }
 
   addColumnData (object) {
     this.columnData.push(object)
-    console.log('columnData contains: ', this.columnData)
-    return this.columnData
+    if (this.columnData.length === 6) {
+      this.setState({columnData: this.columnData, hasData: true})
+    }
+    // console.log('columnData contains: ', this.columnData)
+    // return this.columnData
     }
 
 
@@ -98,12 +105,16 @@ class App extends Component {
       }
     }
 
+    if(!this.state.hasData) {
+      return (
+        <div>
+          {this.renderColumns()}
+        </div>
+      )
+    }
 
     return (
       <div className="App">
-        <div>
-          {this.renderColumns()},
-        </div>
         <header className="App-header">
           <h1 className="App-title">Project (in) Jeopardy</h1>
         </header>
@@ -127,7 +138,7 @@ class App extends Component {
                   fontSize: "20",
                   verticalAlign: "middle"
                 }}
-                data={this.columndata}
+                data={this.state.columnData.clues}
                 columns={this.columns}
                 defaultPageSize = {5}
                 sortable={false}
